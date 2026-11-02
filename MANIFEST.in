@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include SECURITY.md
+include pyproject.toml
+recursive-include engine/native_crypto *.h *.c
+recursive-include docs *.md
+recursive-include examples *.py

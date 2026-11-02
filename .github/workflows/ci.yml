@@ -1,0 +1,69 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -e ".[dev]"
+
+      - name: Lint with Ruff
+        run: |
+          ruff check .
+
+      - name: Run Unit & Regression Test Suite
+        run: |
+          python -m unittest discover tests
+
+      - name: Compile & Test Native C Subsystems (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p dist
+          gcc -O3 -Wall -Wextra tests/test_native_crypto.c \
+            engine/native_crypto/chacha20.c \
+            engine/native_crypto/anti_debug.c \
+            engine/native_crypto/hw_digest.c \
+            -o dist/test_native_crypto
+          ./dist/test_native_crypto
+
+      - name: Compile & Test Native C Subsystems (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          mkdir -p dist
+          gcc -O3 -Wall -Wextra tests/test_native_crypto.c `
+            engine/native_crypto/chacha20.c `
+            engine/native_crypto/anti_debug.c `
+            engine/native_crypto/hw_digest.c `
+            -o dist/test_native_crypto.exe -ladvapi32
+          .\dist\test_native_crypto.exe
+
+      - name: Run Adversarial Benchmarks & Verification
+        run: |
+          python protect_cli.py --input examples/sample_app.py --preserve main
+          python qa/redteam_ghidra.py examples/sample_app.py dist/sample_app_protected.py
+          python qa/redteam_frida.py dist/sample_app_protected.py
+          python qa/benchmark_suite.py examples/sample_app.py dist/sample_app_protected.py

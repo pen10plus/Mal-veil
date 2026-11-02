@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability Disclosure
+    url: https://github.com/pen10plus/project-gama/blob/main/SECURITY.md
+    about: Please report security vulnerabilities privately.
+  - name: Architecture & Threat Model Documentation
+    url: https://github.com/pen10plus/project-gama/tree/main/docs
+    about: In-depth technical specifications and STRIDE mitigation analysis.

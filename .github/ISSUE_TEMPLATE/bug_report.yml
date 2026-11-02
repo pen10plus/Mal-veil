@@ -1,0 +1,71 @@
+name: Bug Report
+description: Create a report to help us fix a problem in the protection engine
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        Please verify you are not reporting a sensitive security vulnerability. For security disclosures, see [SECURITY.md](https://github.com/pen10plus/project-gama/blob/main/SECURITY.md).
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When transforming a script with nested decorators...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Code / Steps
+      description: Minimal Python code snippet reproducing the problem.
+      render: python
+      placeholder: |
+        # Minimal reproducible example
+        def problematic_func():
+            pass
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pipeline_stage
+    attributes:
+      label: Pipeline Stage Affected
+      options:
+        - AST Sanitizer
+        - Control Flow Flattener
+        - Symbol Mangler
+        - String Literal Encryptor
+        - Native C Subsystems (ChaCha20, Watchdogs)
+        - Nuitka Compiler Driver
+        - CLI / Packaging
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment Info
+      description: Python version, OS, C compiler, and engine version.
+      placeholder: Python 3.12, Windows 11, MinGW GCC 13.2, gama-protect v2.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_logs
+    attributes:
+      label: Actual Output / Traceback
+      description: Terminal output, error logs, or traceback.
+      render: text

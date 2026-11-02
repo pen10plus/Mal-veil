@@ -1,0 +1,98 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gama-protect"
+version = "2.0.0"
+description = "Defense-in-depth code protection, AST obfuscation, and native binary hardening toolchain for Python."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Project Gama Contributors" }
+]
+keywords = [
+    "obfuscation",
+    "python-hardening",
+    "anti-reverse-engineering",
+    "anti-debugging",
+    "ast-transformation",
+    "chacha20",
+    "binary-hardening",
+    "nuitka",
+    "security"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: C",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Code Generators"
+]
+dependencies = []
+
+[project.optional-dependencies]
+compiler = [
+    "nuitka>=2.0"
+]
+dev = [
+    "ruff>=0.3",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=24.0",
+    "mypy>=1.8"
+]
+
+[project.scripts]
+gama-protect = "protect_cli:main"
+pyhardener = "protect_cli:main"
+
+[project.urls]
+Homepage = "https://github.com/pen10plus/project-gama"
+Documentation = "https://github.com/pen10plus/project-gama#readme"
+Repository = "https://github.com/pen10plus/project-gama.git"
+Issues = "https://github.com/pen10plus/project-gama/issues"
+Changelog = "https://github.com/pen10plus/project-gama/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+packages = [
+    "engine",
+    "engine.ast_engine",
+    "engine.crypto",
+    "engine.pipeline",
+    "qa"
+]
+py-modules = ["protect_cli"]
+
+[tool.setuptools.package-data]
+"*" = ["*.h", "*.c", "*.md"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312", "py313"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

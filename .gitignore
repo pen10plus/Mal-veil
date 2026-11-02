@@ -1,0 +1,72 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C / C++ build outputs & binaries
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.pdb
+*.exp
+*.ilk
+
+# Nuitka compiler artifacts & reports
+nuitka-crash-report.xml
+*.build/
+*.dist/
+scons-report.xml
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# Environments & Vendored SDKs
+.env
+.venv/
+env/
+venv/
+ENV/
+python_home/
+python_include/
+python_libs/
+
+# Testing & QA caches
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+tests/scratch_qa/
+
+# Linting & Type checking caches
+.ruff_cache/
+.mypy_cache/
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# Logs & Temporary files
+*.log
+scratch/
+.agents/
