@@ -1,4 +1,4 @@
-# Python Hardened Protection Engine (v2.0)
+# Mal-Veil (v2.0)
 
 [![CI Pipeline](https://img.shields.io/badge/CI-Passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
